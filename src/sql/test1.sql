@@ -72,6 +72,10 @@ alter table test drop column job;
 --test 테이블의 job필드의 길이를 20자로 수정하시오.(modify column)
 alter table test modify column job varchar(20);
 
+-- test 테이블의 name필드명을 irum필드로 변경하시오. (change column)
+alter table test change column name irum varchar(20);
+
+
 -- test 테이블에 고유번호(idx) 필드를 추가하시오. - 기본키를 추가(구분이 될 수 있는 중복을 배제한 필드) 추가
 alter table test add column idx int not null auto_increment primary key;
 
