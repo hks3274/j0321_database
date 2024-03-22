@@ -3,13 +3,12 @@ package t5_CRUD;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SungjukService {
+public class SungjukService2 {
 	Scanner sc = new Scanner(System.in);
 	SungjukDAO dao = new SungjukDAO();
 	SungjukVO vo = null;
 	int res;
 	String ans = "N";
-	int choice = 0;
 
 	public void setSungjukInput() {
 		String name = "";
@@ -54,6 +53,7 @@ public class SungjukService {
 				break;
 		}
 
+		dao.connClose();
 	}
 
 	public void getSungjukList() { // 여러건이 존재할때는 ArrayList룰 사용
@@ -100,89 +100,34 @@ public class SungjukService {
 	// 개별자료 검색
 	public void getSungjukSearch() {
 		while (true) {
-			sungjukBasicSearch();
+			System.out.print("\n조회할 성명을 입력하세요 : ");
+			String name = sc.next();
 
+			vo = dao.getSungjukSearch(name);
+
+			if (vo != null) {
+				calculator(vo);
+				System.out.println("\n고유번호 : " + vo.getIdx());
+				System.out.println("이름 : " + vo.getName());
+				System.out.println("국어 : " + vo.getKor());
+				System.out.println("영어 : " + vo.getEng());
+				System.out.println("수학 : " + vo.getMat());
+				System.out.println("총점 : " + vo.getTot());
+				System.out.println("평균 : " + String.format("%.1f", vo.getAvg()));
+				System.out.println("학점 : " + vo.getGrade() + "\n");
+			} else {
+				System.out.println("검색하신 " + name + "은 없습니다.");
+			}
 			System.out.print("계속하시겠습니까?(y/n) ==>");
 			ans = sc.next();
-			if (!ans.toUpperCase().equals("Y"))
-				break;
+			if (!ans.toUpperCase().equals("Y")) break;
 		}
 
 	}
-
-	// 회원정보 수정하기
+	
+	//회원정보 수정하기
 	public void setSungjukUpdate() {
-		sungjukBasicSearch();
-
-		boolean run = true;
-		while (run) {
-
-			System.out.print("수정항목선택 : 1.성명 2.국어 3.영어 4.수학 0.종료 ==>");
-			choice = sc.nextInt();
-			System.out.print("수정할 내용을 입력하세요 : ");
-
-			switch (choice) {
-				case 1:
-					vo.setName(sc.next());
-					break;
-				case 2:
-					vo.setKor(sc.nextInt());
-					break;
-				case 3:
-					vo.setEng(sc.nextInt());
-					break;
-				case 4:
-					vo.setMat(sc.nextInt());
-					break;
-				default:
-					run = false;
-			}
-		}
-		res = dao.setSungjukUpdate();
-
-		if (res != 0) {
-			System.out.println("성적내역이 수정되었습니다.");
-		} else {
-			System.out.println("수정된 내역이 없습니다.");
-		}
-	}
-
-	private void sungjukBasicSearch() {
-		System.out.print("\n조회할 성명을 입력하세요 : ");
-		String name = sc.next();
-
-		vo = dao.getSungjukSearch(name);
-
-		if (vo != null) {
-			calculator(vo);
-			System.out.println("\n고유번호 : " + vo.getIdx());
-			System.out.println("이름 : " + vo.getName());
-			System.out.println("국어 : " + vo.getKor());
-			System.out.println("영어 : " + vo.getEng());
-			System.out.println("수학 : " + vo.getMat());
-			System.out.println("총점 : " + vo.getTot());
-			System.out.println("평균 : " + String.format("%.1f", vo.getAvg()));
-			System.out.println("학점 : " + vo.getGrade() + "\n");
-		} else {
-			System.out.println("검색하신 " + name + "은 없습니다.");
-		}
-	}
-
-	// 점수 삭제하기
-	public void setSungjukDelete() {
-		sungjukBasicSearch();
-
-		if (vo != null) {
-			System.out.println("삭제하시겠습니까?");
-			ans = sc.next();
-
-			if (ans.toUpperCase().equals("Y")) {
-				res = dao.setSungjukDelete(vo.getIdx());
-				if(res != 0) System.out.println(vo.getName()+"삭제되었습니다.");
-			} else {
-				System.out.println("삭제가 취소 되었습니다.");				
-			}
-		}
+		
 	}
 
 }

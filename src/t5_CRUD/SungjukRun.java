@@ -19,16 +19,16 @@ public class SungjukRun {
 					service.setSungjukInput();
 					break;
 				case 2:
-//					service.getSungjukList();
+					service.getSungjukList();
 					break;
 				case 3:
-//					service.getSungjukSearch();
+					service.getSungjukSearch();
 					break;
 			  case 4:
-//			  	service.setSungjukUpdate();
+			  	service.setSungjukUpdate();
 					break;
 			  case 5:
-//			  	service.setSungjukDelete();
+			  	service.setSungjukDelete();
 					break;
 				default:
 					run = false;

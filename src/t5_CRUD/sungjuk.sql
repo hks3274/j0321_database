@@ -8,6 +8,7 @@ create table sungjuk(
 	mat int default 0						/* 수학점수 */
 );
 
+drop table sungjuk;
 
 desc sungjuk;
 

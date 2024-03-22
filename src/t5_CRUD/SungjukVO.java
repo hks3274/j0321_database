@@ -6,8 +6,11 @@ public class SungjukVO {
 	private int kor;
 	private int eng;
 	private int mat;
-	// 날짜는 String 타입으로 정해주면 편하다. boolean은 char타입으로 주면 편하다.
+	private int tot;
+	private double avg;
+	private char grade;
 
+	// 날짜는 String 타입으로 정해주면 편하다. boolean은 char타입으로 주면 편하다.
 	public int getIdx() {
 		return idx;
 	}
@@ -48,9 +51,35 @@ public class SungjukVO {
 		this.mat = mat;
 	}
 
-	@Override
-	public String toString() {
-		return "SungjukVO [idx=" + idx + ", name=" + name + ", kor=" + kor + ", eng=" + eng + ", mat=" + mat + "]";
+	public int getTot() {
+		return tot;
 	}
 
+	public void setTot(int tot) {
+		this.tot = tot;
+	}
+
+	public double getAvg() {
+		return avg;
+	}
+
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+
+	public char getGrade() {
+		return grade;
+	}
+
+	public void setGrade(char grade) {
+		this.grade = grade;
+	}
+
+	@Override
+	public String toString() {
+		return "SungjukVO [idx=" + idx + ", name=" + name + ", kor=" + kor + ", eng=" + eng + ", mat=" + mat + ", tot="
+				+ tot + ", avg=" + avg + ", grade=" + grade + "]";
+	}
+
+	
 }
