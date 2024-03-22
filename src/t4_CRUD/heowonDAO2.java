@@ -1,4 +1,4 @@
-package t3_CRUD;
+package t4_CRUD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +18,8 @@ public class heowonDAO2 {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			String url = "jdbc:mysql://localhost:3306/javaclass";
+//			String url = "jdbc:mysql://127.0.0.1:3306/javaclass";
+//			String url = "jdbc:mysql://192.168.50.51:3306/javaclass";
 			String user = "atom";
 			String padssword = "1234";
 
@@ -110,29 +112,21 @@ public class heowonDAO2 {
 
 		return vo;
 	}
-
-	public void setUpDate(int idx, int choice, String content) {
-		try {
-			stmt = conn.createStatement();
-			sql = "";
-			if (choice == 1) {
-				sql = "update heowon set name = '" + content + "' where idx = " + idx;
-			} else if (choice == 2) {
-				sql = "update heowon set age = " + Integer.parseInt(content) + " where idx = " + idx;
-			} else if (choice == 3) {
-				sql = "update heowon set gender = '" + content + "' where idx = " + idx;
-			} else if (choice == 4) {
-				sql = "update heowon set address = '" + content + "' where idx = " + idx;
-			}
-			stmt.executeUpdate(sql);
-			// excuteQuery는 결과를 넘겨받는 경우에 사용 그래서 excuteQuery만 select 에만 사용.
-			// 나머지는 모조건 excuteUpdata 사용
-		} catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
-		} finally {
-			stmtClose();
-		}
-	}
+	/*
+	 * 
+	 * public void setUpDate(int idx, int choice, String content) { try { stmt =
+	 * conn.createStatement(); sql = ""; if (choice == 1) { sql =
+	 * "update heowon set name = '" + content + "' where idx = " + idx; } else if
+	 * (choice == 2) { sql = "update heowon set age = " + Integer.parseInt(content)
+	 * + " where idx = " + idx; } else if (choice == 3) { sql =
+	 * "update heowon set gender = '" + content + "' where idx = " + idx; } else if
+	 * (choice == 4) { sql = "update heowon set address = '" + content +
+	 * "' where idx = " + idx; } stmt.executeUpdate(sql); // excuteQuery는 결과를 넘겨받는
+	 * 경우에 사용 그래서 excuteQuery만 select 에만 사용. // 나머지는 모조건 excuteUpdata 사용 } catch
+	 * (SQLException e) { System.out.println("SQL 오류 : " + e.getMessage()); }
+	 * finally { stmtClose(); } }
+	 * 
+	 */
 
 	public void setDelete(String name) {
 		try {
@@ -161,6 +155,27 @@ public class heowonDAO2 {
 		} finally {
 			stmtClose();
 		}
+	}
+
+	// 회원 정보수정하기
+
+	public int setUpDate(HeowonVO vo) {
+		int res = 0;
+		try {
+			stmt = conn.createStatement();
+
+			sql = "update heowon set name = '"+vo.getName()+"', age = "+vo.getAge()+", gender = '"+vo.getGender()+"',address = '"+vo.getAddress()+"' where idx ="+vo.getIdx();
+			res = stmt.executeUpdate(sql);
+//			System.out.println("res : "+res);
+			
+			stmt.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			stmtClose();
+		}
+		return res;
 	}
 
 }
