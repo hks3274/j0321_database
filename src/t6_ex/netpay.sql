@@ -12,6 +12,8 @@ insert into salary values ('과장', 4000000);
 insert into salary values ('대리', 3000000);
 insert into salary values ('사원', 2000000);
 
+select * from salary;
+
 create table insa ( 
 	idx int not null auto_increment primary key, /*인사관리 고유번호*/
 	sabun char(8) not null, /*직급코드(년(2)월(2)일(2)일련번호(2))*/
@@ -34,3 +36,16 @@ insert into insa values (default,'24032102', '영업과', '김말숙','대리', 
 insert into insa values (default,'24032201', '총무과', '이기자','사원', 25, '2022-8-22', '남자','서울');
 
 select * from insa;
+
+--- 이기자의 급여
+select bonbong from salary where jikkub = '사원';
+
+--이기자의 본봉
+select * from salary s, insa i where s.jikkub = i.jikkub;
+
+
+select i.name, i.jikkub, s.bonbong from salary s, insa i where s.jikkub = i.jikkub;
+
+
+
+
